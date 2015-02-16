@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<script>
+	var x = 3;
+	var y  = 9.8;
+	var PI = 3.14159;
+	var str =  "This is a string";
+	
+	var doConfirm = function(){
+		dialogConfirm.set( 'confAnswer' , "Do you want to confirm. say yes/no." );
+	}
+	var getText = function(){
+		dialogInput.set('freeText', "Enter text")
+	}
+	
+	var dialogInput = {
+		id: null,
+		value: null,
+		set: function(id, text){
+			
+		}
+	}
+	
+	var dialogConfirm= {
+		id: null,
+		value: null,
+		set: function(resultID, question){
+			dialogConfirm.id = resultID;
+			var output = "";
+			output = output + "<p>" + question + "</p>";
+			output = output + "<a href='javascript:dialogConfirm.done()'> Yes <\a>";
+			output = output + "<a href='javascript:dialogConfirm.cancel()'> No <\a>"; 
+			document.getElementById("overlay").innerHTML = output;
+			document.getElementById("overlay").style.display = "block";
+		},
+		
+		hide: function(){
+			document.getElementById(dialogConfirm.id).innerHTML = dialogConfirm.value;
+			document.getElementById("overlay").innerHTML = "";
+			document.getElementById("overlay").style.display ="none";
+		},
+		done: function(){
+			dialogConfirm.value = true;
+			dialogConfirm.hide();
+			
+		},
+		cancel: function(){
+			dialogConfirm.value = false;
+			dialogConfirm.hide();
+		}
+	}
+	
+	</script>
+	
+	<style>
+	#overlay{
+		display: none;
+		background-color: rgba(255,255,255,.8);
+		position: fixed;
+		height: 100%;
+		width: 100%;
+		top: 0px;
+		left: 0px;
+	}
+	</style>
+</head>
+
+<body>
+	<div class ='actions'>
+		
+		<a href='javascript:doConfirm()'> Confirmation </a>
+		<div id='confAnswer'></div>
+		
+		<a href='javascript:getText()'> Answer </a>
+		<div id='freeText'></div>
+	</div>
+	
+	<div  id='overlay'></div>
+</body>
+</html>
